@@ -1,7 +1,5 @@
 # 🌿 LendWise: Your Peaceful Financial Sanctuary
 
-![LendWise Banner](Frontend/public/favicon.png)
-
 LendWise is an intelligent, high-performance financial co-pilot designed to transform the overwhelming complexity of debt into a clear, serene pathway toward financial freedom. Built with a focus on **"Zen" aesthetics** and cutting-edge user experience, LendWise provides a calming environment for managing personal finances.
 
 ---
