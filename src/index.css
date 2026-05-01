@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Plus Jakarta Sans from Google Fonts ===== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+/* ===== Material Symbols (used for icons) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@layer base {
+  * {
+    @apply border-outline/20;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-sans;
+    background-color: #f9faf5;
+    color: #1a1c1a;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #507e62;
+    color: #f6fff5;
+  }
+}
+
+@layer components {
+  /* ===== GLASS CARD — Primary container ===== */
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 50px rgba(55, 101, 75, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .glass-card:hover {
+    box-shadow: 0 25px 60px rgba(55, 101, 75, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ===== AMBIENT SHADOW ===== */
+  .ambient-shadow {
+    box-shadow: 0 30px 60px rgba(55, 101, 75, 0.08);
+  }
+
+  /* ===== TEXT GRADIENT ===== */
+  .text-gradient-sage {
+    background: linear-gradient(135deg, #37654b, #507e62);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ===== PILL BUTTON VARIANTS ===== */
+  .btn-primary {
+    @apply bg-primary text-on-primary px-6 py-3 rounded-full font-semibold text-body-md;
+    box-shadow: 0 0 20px rgba(55, 101, 75, 0.4);
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(55, 101, 75, 0.6);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-primary px-6 py-3 rounded-full font-semibold text-body-md;
+    border: 2px solid #e2e3df;
+    transition: all 0.3s ease;
+  }
+  .btn-ghost:hover {
+    border-color: #37654b;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* ===== NAV LINK ===== */
+  .nav-link {
+    @apply flex items-center gap-3 px-6 py-3 rounded-full text-body-md font-medium transition-all duration-200;
+    color: #5f5e5b;
+  }
+  .nav-link:hover {
+    color: #37654b;
+    background-color: rgba(226, 227, 223, 0.5);
+  }
+  .nav-link.active {
+    @apply bg-primary text-on-primary shadow-lg;
+    box-shadow: 0 4px 20px rgba(55, 101, 75, 0.15);
+  }
+
+  /* ===== METRIC CARD ===== */
+  .metric-card {
+    @apply glass-card rounded-xl p-6 flex flex-col gap-2 relative overflow-hidden;
+  }
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 128px;
+    height: 128px;
+    border-radius: 9999px;
+    filter: blur(40px);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .metric-card.sage::before { background-color: rgba(55, 101, 75, 0.1); }
+  .metric-card.slate::before { background-color: rgba(59, 94, 132, 0.1); }
+  .metric-card.peach::before { background-color: rgba(255, 218, 214, 0.3); }
+  .metric-card.oat::before { background-color: rgba(95, 94, 91, 0.05); }
+
+  /* ===== LABEL CAPS ===== */
+  .label {
+    @apply text-label-caps font-bold uppercase tracking-widest;
+    color: #5f5e5b;
+  }
+
+  /* ===== SCROLLBAR STYLING ===== */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(113, 121, 114, 0.3);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(113, 121, 114, 0.5);
+  }
+}
+
+@layer utilities {
+  .animate-delay-100 { animation-delay: 0.1s; }
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-500 { animation-delay: 0.5s; }
+}
