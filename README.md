@@ -1,17 +1,57 @@
-# React + Vite
+# LendWise: Your Peaceful Financial Sanctuary 🌿
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LendWise is an intelligent, high-performance financial co-pilot designed to transform the overwhelming complexity of debt into a clear, serene pathway toward financial freedom. Built with a focus on "Zen" aesthetics and cutting-edge user experience, LendWise provides a calming environment for managing personal finances.
 
-Currently, two official plugins are available:
+![LendWise Preview](https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=2071)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- **Zen Financial Dashboard:** A clean, non-intimidating interface that focuses on essential metrics and emotional well-being.
+- **Advanced Parallax Experience:** An immersive landing page featuring multi-layered 3D perspective effects and scroll-linked animations.
+- **AI-Powered Insights:** (Coming Soon) Intelligent analysis of your spending and debt patterns to suggest optimized repayment paths.
+- **Debt untangling:** Tools to visualize and organize multiple credit lines and liabilities into a single, manageable strategy.
+- **Secure by Design:** Built with modern React standards ensuring a fast, private, and reliable experience.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎨 Design Philosophy: The "Peaceful Sanctuary"
 
-## Expanding the ESLint configuration
+LendWise isn't just a spreadsheet; it's a sanctuary. The UI utilizes:
+- **Sage-Toned Palette:** Calm greens and earthy neutrals (#37654b, #507e62) to reduce financial anxiety.
+- **Glassmorphism:** Premium frosted-glass effects and subtle backdrop blurs for a modern, lightweight feel.
+- **Fluid Motion:** Orchestrated animations using Framer Motion to provide tactile feedback and visual delight.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Lendwise
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/saswatdutta1310/Lendwise.git
+   ```
+2. Navigate to the project folder:
+   ```bash
+   cd Lendwise
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🛠️ Tech Stack
+
+- **Framework:** React + Vite
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Icons:** Material Symbols (Google Fonts)
+- **State Management:** Zustand
+- **Routing:** React Router v6
+
+---
+
+*Untangle your debt. Find your peace. Welcome to LendWise.*
