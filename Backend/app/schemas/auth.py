@@ -26,10 +26,12 @@ class UserResponse(UserBase):
         from_attributes = True
 
 class Token(BaseModel):
-    access_token: str
-    refresh_token: str
+    access_token: Optional[str] = None
+    refresh_token: Optional[str] = None
     token_type: str = "bearer"
-    expires_in: int
+    expires_in: Optional[int] = None
+    status: str = "SUCCESS"  # SUCCESS, 2FA_REQUIRED
+    temp_token: Optional[str] = None
 
 class TokenPayload(BaseModel):
     sub: Optional[int] = None

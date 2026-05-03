@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Header, HTTPException, Query
+from fastapi import APIRouter, Request, Header, HTTPException, Query, Response
 import hmac
 import hashlib
 from app.core.config import settings
@@ -17,7 +17,7 @@ async def verify_webhook(
     Meta Webhook verification.
     """
     if hub_mode == "subscribe" and hub_verify_token == settings.WHATSAPP_VERIFY_TOKEN:
-        return int(hub_challenge)
+        return Response(content=hub_challenge, media_type="text/plain")
     raise HTTPException(status_code=403, detail="Verification failed")
 
 @router.post("/webhook")
@@ -35,16 +35,18 @@ async def process_webhook(
     if not x_hub_signature_256:
         raise HTTPException(status_code=401, detail="Signature missing")
     
+    # Meta uses App Secret for signature verification
+    app_secret = settings.WHATSAPP_APP_SECRET.get_secret_value() if settings.WHATSAPP_APP_SECRET else ""
+    
     expected_signature = hmac.new(
-        settings.WHATSAPP_ACCESS_TOKEN.get_secret_value().encode(),
+        app_secret.encode(),
         body,
         hashlib.sha256
     ).hexdigest()
     
-    # Meta signature is 'sha256=...'
     if not hmac.compare_digest(f"sha256={expected_signature}", x_hub_signature_256):
         logger.warning("invalid_whatsapp_signature")
-        # raise HTTPException(status_code=401, detail="Invalid signature")
+        raise HTTPException(status_code=401, detail="Invalid signature")
 
     # 2. Parse Body
     data = await request.json()

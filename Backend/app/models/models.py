@@ -22,6 +22,7 @@ class User(Base):
     parental_consent_approved_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
+    is_2fa_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
     two_fa_secret: Mapped[Optional[str]] = mapped_column(String(100))
     
     loans: Mapped[List["Loan"]] = relationship(back_populates="user")

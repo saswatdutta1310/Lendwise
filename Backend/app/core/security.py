@@ -8,7 +8,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 ALGORITHM = "HS256"
 
-def create_access_token(subject: Union[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+def create_access_token(
+    subject: Union[str, Any], 
+    expires_delta: Optional[timedelta] = None,
+    is_2fa_temp: bool = False
+) -> str:
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
@@ -16,8 +20,17 @@ def create_access_token(subject: Union[str, Any], expires_delta: Optional[timede
             minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
     to_encode = {"exp": expire, "sub": str(subject)}
+    if is_2fa_temp:
+        to_encode["2fa_temp"] = True
+        
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY.get_secret_value(), algorithm=ALGORITHM)
     return encoded_jwt
+
+def verify_2fa_temp_token(token: str) -> int:
+    payload = jwt.decode(token, settings.SECRET_KEY.get_secret_value(), algorithms=[ALGORITHM])
+    if not payload.get("2fa_temp"):
+        raise ValueError("Not a valid 2FA temporary token")
+    return int(payload["sub"])
 
 def create_refresh_token(subject: Union[str, Any], expires_delta: Optional[timedelta] = None) -> str:
     if expires_delta:

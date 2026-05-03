@@ -5,8 +5,9 @@ from sqlalchemy import select
 from app.api import deps
 from app.db.session import get_db
 from app.models.models import Loan, User
-from app.tasks.pipeline import process_loan_pipeline
+from app.tasks.pipeline import process_loan_upload
 import uuid
+import os
 
 router = APIRouter()
 
@@ -21,21 +22,28 @@ async def upload_loan(
     Upload loan document, trigger OCR/AI pipeline, and return task_id.
     """
     file_id = str(uuid.uuid4())
-    # Save file locally or to S3 (Mocking here)
-    file_path = f"/tmp/uploads/{file_id}_{file.filename}"
+    # Save file locally (Simplified for hackathon)
+    upload_dir = "/tmp/lendwise_uploads"
+    os.makedirs(upload_dir, exist_ok=True)
+    upload_path = os.path.join(upload_dir, f"{file_id}_{file.filename}")
+    
+    with open(upload_path, "wb") as f:
+        f.write(await file.read())
     
     # Create loan record in PENDING state
     loan = Loan(
         user_id=current_user.id,
-        file_path=file_path,
-        status="PENDING"
+        name=file.filename,
+        upload_path=upload_path,
+        status="PENDING",
+        loan_jurisdiction=current_user.jurisdiction # Default from user
     )
     db.add(loan)
     await db.commit()
     await db.refresh(loan)
 
     # Trigger Celery pipeline
-    task = process_loan_pipeline.delay(loan.id)
+    task = process_loan_upload.delay(loan.id)
     
     return {"loan_id": loan.id, "task_id": task.id, "status": "PROCESSING"}
 

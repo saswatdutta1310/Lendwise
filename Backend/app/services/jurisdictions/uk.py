@@ -2,17 +2,24 @@ class UKJurisdiction:
     @staticmethod
     def get_tax_rules():
         return {
-            "plan_1": {"threshold": 22015, "rate": 0.09},
-            "plan_2": {"threshold": 27295, "rate": 0.09},
-            "plan_5": {"threshold": 25000, "rate": 0.09},
-            "description": "Repayments are threshold-based and taken via payroll (PAYE)."
+            "plan_types": {
+                "Plan 1": {"threshold": 22015, "rate": 0.09},
+                "Plan 2": {"threshold": 27295, "rate": 0.09},
+                "Plan 4": {"threshold": 27660, "rate": 0.09},
+                "Plan 5": {"threshold": 25000, "rate": 0.09},
+                "Postgrad": {"threshold": 21000, "rate": 0.06}
+            },
+            "write_off": {
+                "description": "Remaining balance written off after 25-40 years depending on plan.",
+            }
         }
 
     @staticmethod
-    def calculate_repayment(annual_income: float, plan: str):
-        # Implementation of UK Plan threshold logic
-        thresholds = {"plan_1": 22015, "plan_2": 27295, "plan_5": 25000}
-        threshold = thresholds.get(plan, 27295)
-        if annual_income <= threshold:
+    def calculate_compulsory_repayment(annual_income: float, plan_type: str = "Plan 2"):
+        rules = UKJurisdiction.get_tax_rules()["plan_types"]
+        plan = rules.get(plan_type, rules["Plan 2"])
+        
+        if annual_income <= plan["threshold"]:
             return 0
-        return (annual_income - threshold) * 0.09
+        
+        return (annual_income - plan["threshold"]) * plan["rate"]

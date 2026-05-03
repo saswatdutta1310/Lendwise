@@ -14,16 +14,22 @@ import json
 logger = structlog.get_logger()
 
 @celery_app.task(name="app.tasks.pipeline.process_loan_upload")
-def process_loan_upload(loan_id: int, file_content_path: str):
+def process_loan_upload(loan_id: int):
     """
     Celery task to run the full processing pipeline.
     """
     loop = asyncio.get_event_loop()
-    return loop.run_until_complete(_run_pipeline(loan_id, file_content_path))
+    return loop.run_until_complete(_run_pipeline(loan_id))
 
-async def _run_pipeline(loan_id: int, file_content_path: str):
+async def _run_pipeline(loan_id: int):
     async with SessionLocal() as db:
-        loan = await db.get(Loan, loan_id)
+        # Load loan with user relationship
+        from sqlalchemy.orm import selectinload
+        result = await db.execute(
+            select(Loan).options(selectinload(Loan.user)).filter(Loan.id == loan_id)
+        )
+        loan = result.scalars().first()
+        
         if not loan:
             return "Loan not found"
 
@@ -32,11 +38,14 @@ async def _run_pipeline(loan_id: int, file_content_path: str):
             loan.status = "ocr_processing"
             await db.commit()
 
-            # 1. Load File Content (e.g. from local temp or S3)
-            # For hackathon, assume it's passed or stored in S3
-            # file_content = get_from_s3(file_content_path)
-            # Mocking file content for now
-            file_content = b"Mock loan document content"
+            # 1. Load File Content
+            # In production, this would be S3. For local dev, read from upload_path.
+            import os
+            if os.path.exists(loan.upload_path):
+                with open(loan.upload_path, "rb") as f:
+                    file_content = f.read()
+            else:
+                file_content = b"Fallback mock content"
 
             # 2. OCR
             ocr_result = await ocr_service.process_document(file_content, loan.name)

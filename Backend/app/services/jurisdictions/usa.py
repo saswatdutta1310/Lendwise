@@ -3,19 +3,26 @@ class USAJurisdiction:
     def get_tax_rules():
         return {
             "interest_deduction": {
+                "description": "Student loan interest deduction up to $2,500.",
                 "max_amount": 2500,
-                "description": "Student loan interest deduction from taxable income.",
+                "phase_out_start": 70000, # Single filer
+                "phase_out_end": 85000
             },
-            "idr_plans": ["SAVE", "PAYE", "IBR", "ICR"],
             "pslf": {
-                "required_payments": 120,
-                "description": "Public Service Loan Forgiveness for non-profit/gov employees."
+                "description": "Public Service Loan Forgiveness after 120 qualifying payments.",
+                "eligibility": "Non-profit or government employment",
+                "payments_required": 120
+            },
+            "idr": {
+                "description": "Income-Driven Repayment plans (SAVE, IBR, PAYE).",
+                "discretionary_income_factor": 0.10 # 10% for SAVE
             }
         }
 
     @staticmethod
-    def calculate_save_payment(discretionary_income: float):
-        """
-        Calculates payment for the SAVE plan (10% or 5% of discretionary income).
-        """
-        return discretionary_income * 0.10 # Example placeholder
+    def calculate_idr_payment(annual_income: float, family_size: int, poverty_line: float = 15060):
+        # SAVE plan logic: (Income - 225% of Poverty Line) * 10% / 12
+        discretionary_income = annual_income - (2.25 * poverty_line)
+        if discretionary_income <= 0:
+            return 0
+        return (discretionary_income * 0.10) / 12

@@ -20,14 +20,16 @@ class AIEngineService:
         Parses raw OCR text into structured JSON using LLM.
         """
         system_prompt = (
-            "The document language is {document_language}. "
-            "Extract loan data regardless of language. Return JSON in English field names. "
-            "Extract: principal, interest_rate, tenure, emi, lender, type, currency, dates, etc."
+            "You are a loan document parser. The document language is {document_language}. "
+            "Extract loan data regardless of language. Return ONLY a valid JSON object. "
+            "JSON fields: principal, interest_rate (as float), tenure_months (int), emi (float), "
+            "lender_name, loan_type, currency (3-letter code), start_date (ISO). "
+            "If a value is missing, use null."
         )
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", system_prompt),
-            ("user", "{text}")
+            ("user", "Extract data from this text: {text}")
         ])
         
         chain = prompt | self.primary_llm
