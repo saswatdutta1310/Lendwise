@@ -56,26 +56,20 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    # AWS
-    AWS_ACCESS_KEY_ID: Optional[str] = None
-    AWS_SECRET_ACCESS_KEY: Optional[SecretStr] = None
-    AWS_REGION: str = "ap-south-1"
-    S3_BUCKET_NAME: str = "lendwise-documents"
-
-    # AI (Gemini & OpenAI)
+    # Simplified APIs
+    # 1. Google Gemini (Handles OCR + AI Extraction)
     GOOGLE_API_KEY: Optional[SecretStr] = None
-    OPENAI_API_KEY: Optional[SecretStr] = None
 
-    # Notifications
-    SENDGRID_API_KEY: Optional[SecretStr] = None
-    MSG91_AUTH_KEY: Optional[SecretStr] = None
+    # 2. Twilio (Handles SMS + WhatsApp)
     TWILIO_ACCOUNT_SID: Optional[str] = None
     TWILIO_AUTH_TOKEN: Optional[SecretStr] = None
-    WHATSAPP_ACCESS_TOKEN: Optional[SecretStr] = None
-    WHATSAPP_PHONE_NUMBER_ID: Optional[str] = None
-    WHATSAPP_VERIFY_TOKEN: Optional[str] = None
+    TWILIO_WHATSAPP_NUMBER: Optional[str] = None # Twilio sandbox or prod number
 
-    # Blockchain
+    # WhatsApp (Meta Webhook verification token)
+    WHATSAPP_VERIFY_TOKEN: str = "LendWise_Verify_2024"
+    WHATSAPP_APP_SECRET: Optional[SecretStr] = None
+
+    # Blockchain (Optional, can be mocked)
     POLYGON_RPC_URL: str = "https://polygon-rpc.com"
     BLOCKCHAIN_PRIVATE_KEY: Optional[SecretStr] = None
 
