@@ -81,7 +81,7 @@ Run these from the **root directory**:
 *   `npm install` - Installs dependencies for the entire workspace.
 *   `npm run dev` - Starts the frontend development server.
 *   `npm run build` - Builds the frontend for production.
-*   `npm run lint` - Runs ESLint across the project.
+*   `npm run lint` - Runs ESLint across  project.
 
 ---
 
