@@ -27,7 +27,7 @@ LendWise isn't just a spreadsheet; it's a sanctuary. The UI utilizes:
 
 ### Prerequisites
 *   **Node.js** (v18+)
-*   **npm** or **yarn**
+*   **npm** 
 
 ### Quick Start
 1.  **Clone the repository**:
