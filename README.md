@@ -9,7 +9,7 @@ LendWise is an intelligent, high-performance financial co-pilot designed to tran
 *   **🧘 Zen Financial Dashboard**: A clean, non-intimidating interface that focuses on essential metrics and emotional well-being.
 *   **🌌 Advanced Parallax Experience**: An immersive landing page featuring multi-layered 3D perspective effects and scroll-linked animations.
 *   **🤖 AI-Powered Insights**: Intelligent analysis of your spending and debt patterns to suggest optimized repayment paths.
-*   **🧶 Debt Untangling**: Tools to visualize and organize multiple credit lines and liabilities into a single, manageable strategy.
+*   **🧶 Debt Untangling**: Tools to visualize and organize multiple credit lines and liabilities into single, manageable strategy.
 *   **🛡️ Secure by Design**: Built with modern React standards ensuring a fast, private, and reliable experience.
 
 ---
