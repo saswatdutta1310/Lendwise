@@ -48,7 +48,7 @@ LendWise isn't just a spreadsheet; it's a sanctuary. The UI utilizes:
 
 ## 📂 Project Structure
 
-This project is organized as a monorepo using **npm workspaces**:
+This project is organized as monorepo using **npm workspaces**:
 
 ```text
 ├── Frontend/           # Main React + Vite application
